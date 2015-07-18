@@ -4,8 +4,13 @@ class DistancesController < ApplicationController
     lon = params[:lon].to_f
     feet_in_one_lat = 364402.01
     feet_in_one_lon = 272541.72
-    mm_lat = 41.888378
-    mm_lon = -87.636513
+
+    Latitude:
+    mm_lat = 40.759011
+    Longitude:
+    mm_lon = -73.984472
+    # mm_lat = 41.888378
+    # mm_lon = -87.636513
     d_lat = lat - mm_lat
     d_lon = lon - mm_lon
     d_lat_in_feet = d_lat*feet_in_one_lat
