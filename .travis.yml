@@ -4,7 +4,8 @@ rvm:
 env:
   - DB=postgresql
 script:
-  - bundle exec rake spec
+  - bundle exec rspec
+
 before_script:
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:migrate
