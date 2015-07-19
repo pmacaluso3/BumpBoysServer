@@ -44,7 +44,7 @@ class ServersController < ApplicationController
             this_users_nearby_friends_images << User.find_by(token: mutual_contact_token).image_url
           end
         end
-
+        User.find_by(token: user_token).nearby_friends_images = this_users_nearby_friends_images.join(",")
       end
 
     # end
