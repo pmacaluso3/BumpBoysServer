@@ -11,8 +11,8 @@ bo = User.create!(udid: "1",
   last_name: "Guthrie",
   phone_number: "2058070850",
   image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
-  lat: 0.0,
-  lon: 0.0
+  lat: 41.898378,
+  lon: -87.635513
   )
 
 nick = User.create!(udid: "2",
@@ -20,8 +20,8 @@ nick = User.create!(udid: "2",
   last_name: "Siefken",
   phone_number: "3096455208",
   image_url: "https://pbs.twimg.com/profile_images/3406647874/55e6e2b3a2cd929d478213bca7ea346a.jpeg",
-  lat: 0.0,
-  lon: 0.0
+  lat: 41.888378,
+  lon: -87.636513
   )
 
 pete = User.create!(udid: "3",

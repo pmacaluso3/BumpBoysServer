@@ -3,3 +3,12 @@
     <%= k %>: <%= v %>
   </p>
 <% end %>
+
+<% @distances.each do |user_phone_number, distance_list| %>
+  <p>
+    <%= user_phone_number %>:
+    <% distance_list.each do |contact_number, distance| %>
+      <%= contact_number %>: <%= distance %>
+    <% end %>
+  </p>
+<% end %>
