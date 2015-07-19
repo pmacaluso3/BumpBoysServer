@@ -48,9 +48,10 @@ class DistancesController < ApplicationController
     @user.lat = params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
-    @token = params[:token]
-    @lat = params[:lat]
-    @lon = params[:lon]
+    respond_to do |format|
+      format.json {render json: @user.nearby_friends_images}
+      format.html {render 'distances/show'}
+    end
   end
 
   def location_params
