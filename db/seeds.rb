@@ -14,7 +14,7 @@ dum = User.create!(token: "0",
   lon: -87.635513
   )
 
-bo = User.create!(token: "1",
+bo = User.create!(token: "<7e4cdfd5e12553d49e55e33e17ee8f760415583f46c758b2fb9360afcaf26c8d>",
   first_name: "Bo",
   last_name: "Guthrie",
   phone_number: "bo_number",
@@ -23,7 +23,7 @@ bo = User.create!(token: "1",
   lon: -87.635513
   )
 
-nick = User.create!(token: "2",
+nick = User.create!(token: "<e2617728ad6e8b2b656a56a37489d42c4224e28eae6ca47ab665bdd6a5001f03>",
   first_name: "Nick",
   last_name: "Siefken",
   phone_number: "nick_number",
@@ -43,12 +43,12 @@ pete = User.create!(token: "3",
 
 
 
-bo_contact = Contact.create!(token: "1",
+bo_contact = Contact.create!(token: "<7e4cdfd5e12553d49e55e33e17ee8f760415583f46c758b2fb9360afcaf26c8d>",
   first_name: "Bo",
   last_name: "Guthrie",
   phone_number: "bo_number")
 
-nick_contact = Contact.create!(token: "2",
+nick_contact = Contact.create!(token: "<e2617728ad6e8b2b656a56a37489d42c4224e28eae6ca47ab665bdd6a5001f03>",
   first_name: "Nick",
   last_name: "Siefken",
   phone_number: "nick_number")
@@ -63,7 +63,7 @@ steve_contact = Contact.create!(token: "4",
   last_name: "Dude",
   phone_number: "1234567890")
 
-bo.contacts.create(token: "2",
+bo.contacts.create(token: "<e2617728ad6e8b2b656a56a37489d42c4224e28eae6ca47ab665bdd6a5001f03>",
   first_name: "Nick",
   last_name: "Siefken",
   phone_number: "nick_number")
