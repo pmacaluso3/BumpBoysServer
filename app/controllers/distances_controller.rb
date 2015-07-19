@@ -50,7 +50,7 @@ class DistancesController < ApplicationController
     @user.save
     puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@user.nearby_friends_images}"
     respond_to do |format|
-      format.json {render json: @user.nearby_friends_images}
+      format.json {render json: {images: @user.nearby_friends_images}}
       format.html {render 'distances/show'}
     end
   end
