@@ -1,14 +1,14 @@
-<% @mutual_contacts.each do |k, v| %>
+<% @mutual_contacts_master.each do |k, v| %>
   <p>
     <%= k %>: <%= v %>
   </p>
 <% end %>
 
-<% @distances.each do |user_phone_number, distance_list| %>
+<% @relationships.each do |user_phone_number, distance_list| %>
   <p>
     <%= user_phone_number %>:
     <% distance_list.each do |contact_number, distance| %>
-      <%= contact_number %>: <%= distance %>
+      <%= contact_number %>: <%= distance %>,
     <% end %>
   </p>
 <% end %>

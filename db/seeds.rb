@@ -5,51 +5,78 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-bo = User.create!(udid: "1",
-  first_name: "Bo",
-  last_name: "Guthrie",
-  phone_number: "2058070850",
+dum = User.create!(token: "1",
+  first_name: "Dum",
+  last_name: "Dum",
+  phone_number: "dum_number",
   image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
   lat: 41.898378,
   lon: -87.635513
   )
 
-nick = User.create!(udid: "2",
+bo = User.create!(token: "1",
+  first_name: "Bo",
+  last_name: "Guthrie",
+  phone_number: "bo_number",
+  image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
+  lat: 41.898378,
+  lon: -87.635513
+  )
+
+nick = User.create!(token: "2",
   first_name: "Nick",
   last_name: "Siefken",
-  phone_number: "3096455208",
+  phone_number: "nick_number",
   image_url: "https://pbs.twimg.com/profile_images/3406647874/55e6e2b3a2cd929d478213bca7ea346a.jpeg",
   lat: 41.888378,
   lon: -87.636513
   )
 
-pete = User.create!(udid: "3",
+pete = User.create!(token: "3",
   first_name: "Pete",
   last_name: "Macaluso",
-  phone_number: "8132634315",
+  phone_number: "pete_number",
   image_url: "https://pbs.twimg.com/profile_images/580334037211975680/ZYqCIBVb.jpg",
-  lat: 0.0,
-  lon: 0.0
+  lat: 41.788378,
+  lon: -87.836513
   )
 
 
 
-bo_contact = Contact.create!(udid: "",
+bo_contact = Contact.create!(token: "",
   first_name: "Bo",
   last_name: "Guthrie",
-  phone_number: "2058070850")
+  phone_number: "bo_number")
 
-nick_contact = Contact.create!(udid: "",
+nick_contact = Contact.create!(token: "",
   first_name: "Nick",
   last_name: "Siefken",
-  phone_number: "3096455208")
+  phone_number: "nick_number")
 
-steve_contact = Contact.create!(udid: "",
+pete_contact = Contact.create!(token: "",
+  first_name: "Pete",
+  last_name: "Macaluso",
+  phone_number: "pete_number")
+
+steve_contact = Contact.create!(token: "",
   first_name: "Steve",
   last_name: "Dude",
   phone_number: "1234567890")
 
-bo.contacts << nick_contact
+bo.contacts.create(token: "",
+  first_name: "Nick",
+  last_name: "Siefken",
+  phone_number: "nick_number")
+puts bo.contacts.inspect
+# puts bo.contacts.inspect
 nick.contacts << bo_contact
+# puts nick.contacts.inspect
+pete.contacts << nick_contact
+# nick.contacts = [pete_contact, bo_contact]
+# puts pete.contacts.inspect
+nick.contacts << pete_contact
+# puts nick.contacts.inspect
 pete.contacts << steve_contact
+# puts pete.contacts.inspect
+
+puts User.second.inspect

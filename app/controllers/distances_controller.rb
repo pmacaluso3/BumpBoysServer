@@ -42,6 +42,17 @@ class DistancesController < ApplicationController
     end
   end
 
+  def update
+    puts "*************** #{params.inspect}"
+    @user = User.find_by(token: params[:token])
+    @user.lat = params[:lat]
+    @user.lon = params[:lon]
+  end
+
+  def location_params
+    params.permit
+  end
+
 
 
 
