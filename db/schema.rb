@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20150718210350) do
     t.string "last_name"
     t.string "phone_number"
     t.string "image_url"
+    t.float  "lat"
+    t.float  "lon"
   end
 
 end

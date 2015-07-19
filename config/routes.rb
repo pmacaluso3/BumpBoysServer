@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   root 'test#index'
   get 'distance' => 'distances#calculate'
+  get 'run' => 'servers#run'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
