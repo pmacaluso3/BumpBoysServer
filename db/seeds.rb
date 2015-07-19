@@ -11,7 +11,9 @@ dum = User.create!(token: "0",
   phone_number: "dum_number",
   image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
   lat: 41.898378,
-  lon: -87.635513
+  lon: -87.635513,
+  nearby_friends_images: "",
+  nearby_friends_tokens: ""
   )
 
 bo = User.create!(token: "<7e4cdfd5e12553d49e55e33e17ee8f760415583f46c758b2fb9360afcaf26c8d>",
@@ -20,7 +22,9 @@ bo = User.create!(token: "<7e4cdfd5e12553d49e55e33e17ee8f760415583f46c758b2fb936
   phone_number: "bo_number",
   image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
   lat: 41.898378,
-  lon: -87.635513
+  lon: -87.635513,
+  nearby_friends_images: "",
+  nearby_friends_tokens: ""
   )
 
 nick = User.create!(token: "<e2617728ad6e8b2b656a56a37489d42c4224e28eae6ca47ab665bdd6a5001f03>",
@@ -29,7 +33,9 @@ nick = User.create!(token: "<e2617728ad6e8b2b656a56a37489d42c4224e28eae6ca47ab66
   phone_number: "nick_number",
   image_url: "https://pbs.twimg.com/profile_images/3406647874/55e6e2b3a2cd929d478213bca7ea346a.jpeg",
   lat: 41.888378,
-  lon: -87.636513
+  lon: -87.636513,
+  nearby_friends_images: "",
+  nearby_friends_tokens: ""
   )
 
 pete = User.create!(token: "3",
@@ -38,7 +44,9 @@ pete = User.create!(token: "3",
   phone_number: "pete_number",
   image_url: "https://pbs.twimg.com/profile_images/580334037211975680/ZYqCIBVb.jpg",
   lat: 41.788378,
-  lon: -87.836513
+  lon: -87.836513,
+  nearby_friends_images: "",
+  nearby_friends_tokens: ""
   )
 
 

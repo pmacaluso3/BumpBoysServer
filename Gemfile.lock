@@ -50,6 +50,8 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    commander (4.3.4)
+      highline (~> 1.7.2)
     coveralls (0.8.2)
       json (~> 1.8)
       rest-client (>= 1.6.8, < 2)
@@ -65,6 +67,10 @@ GEM
     execjs (2.5.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    highline (1.7.2)
+    houston (2.2.3)
+      commander (~> 4.1)
+      json
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -190,6 +196,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   coveralls
+  houston
   jbuilder (~> 2.0)
   jquery-rails
   pg
