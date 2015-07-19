@@ -44,10 +44,11 @@ class DistancesController < ApplicationController
 
   def update
     puts "*************** #{params.inspect}"
-    @user = User.find_by(token: params[:token])
+    @user = User.find_by(token: "<#{params[:token]}>")
     @user.lat = params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
+    puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@user.nearby_friends_images}"
     respond_to do |format|
       format.json {render json: @user.nearby_friends_images}
       format.html {render 'distances/show'}
