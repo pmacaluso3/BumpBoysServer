@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def has_as_contact(phone_number)
+  def has_as_contact?(test_contact)
     self.contacts.select do |contact|
-
-    end
+      contact.phone_number == test_contact.phone_number
+    end.any?
   end
 end
