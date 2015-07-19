@@ -39,7 +39,7 @@ class ServersController < ApplicationController
       end
 
       # for each user, prepare the string of image urls for the mutual contacts within 1000 feet of that user
-      # also, create a string of the tokens of all of this user's nearby friends
+      # also, create an array of the tokens of all of this user's nearby friends
       @relationships.each do |user_token, mutual_contacts_list|
         this_users_nearby_friends_images = []
         this_users_nearby_friends_tokens = []
@@ -51,21 +51,16 @@ class ServersController < ApplicationController
           end
         end
         User.find_by(token: user_token).nearby_friends_images = this_users_nearby_friends_images.join(",")
+
+        # determine which friends are new to this user's radius, and send this user an apn for each one
+        # finally, set this user's string of nearby user tokens to the new list
         new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
         new_friends_in_radius.each do |friend_token|
           friend = User.find_by(token: friend_token)
           send_apn(user_token, friend.first_name, friend.last_name)
         end
+        User.find_by(token: user_token).nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
       end
-
-      # for each user, prepare the list of people this user should receive push notifications about
-      # @relationships.each do |user_token, mutual_contacts_list|
-      #   mutual_contacts_list.each do |mutual_contact_token, distance|
-      #     if distance < 1000
-      #     end
-      #   end
-      # end
-
 
     # end
     render 'runs/info'
