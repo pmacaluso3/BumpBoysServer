@@ -1,37 +1,25 @@
 class ServersController < ApplicationController
   def run
-    # loop do
-    #   sleep(20)
-    #   @users = User.all
-    #   mutual_contacts = {}
-    #   # mutual_contacts_images = {}
-    #   @users.each do |user|
-    #     mutual_contacts[user.phone_number] = []
-    #     # mutual_contacts_images[user.phone_number] = []
-    #     user.contacts.each do |contact|
-    #       reverse_user = User.find_by(phone_number: contact.phone_number)
-    #       if reverse_user
-    #         circular_user_array = reverse_user.contacts.select do |potential_circular_contact|
-    #           potential_circular_contact.phone_number == user.phone_number
-    #         end
-
-
-
-
-
-    #           if circular_contact
-    #             mutual_contacts[user.phone_number] = contact.phone_number
-    #             # mutual_contacts_images[user.phone_number] = contact.image_url
-    #           end
-    #         end
-    #       end
-    #     end
-    #   end
-    #   @users.each do |user|
-    #     mutual_contacts[user.phone_number].each do |mc|
-
-    #     end
-    #   end
-    # end
+    i = 0
+    loop do
+      # building a mutual contact list for each user
+      @users = User.all
+      @mutual_contacts = {}
+      @users.each do |user|
+        @mutual_contacts[user.phone_number] = []
+        mutual_users = user.contacts_who_are_also_users.map {|e|e.corresponding_user}
+        mutual_users.each do |m_u|
+          if m_u.has_as_contact?(user)
+            @mutual_contacts[user.phone_number] << m_u
+          end
+        end
+      end
+      puts "************** #{@mutual_contacts.inspect}"
+      # determining the distance to each mutual contact for each user
+      i += 1
+      puts "$$$$$$$$$$$$$$ loop number #{i}"
+      sleep(20)
+    end
+    render 'runs/info'
   end
 end
