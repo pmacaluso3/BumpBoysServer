@@ -30,7 +30,8 @@ class DistancesController < ApplicationController
       d_lon_in_feet: d_lon_in_feet,
       dist_in_feet: dist_in_feet
     }
-    puts "**************** #{hash}"
+    puts "**************** #{Time.now}"
+    puts "**************** #{hash[dist_in_feet]}"
     @hash = hash
 
 
@@ -39,6 +40,17 @@ class DistancesController < ApplicationController
       format.json {render json: hash}
       format.html {render 'distances/show'}
     end
+  end
+
+  def update
+    puts "*************** #{params.inspect}"
+    @user = User.find_by(token: params[:token])
+    @user.lat = params[:lat]
+    @user.lon = params[:lon]
+  end
+
+  def location_params
+    params.permit
   end
 
 

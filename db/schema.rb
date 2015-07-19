@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20150718210350) do
   enable_extension "plpgsql"
 
   create_table "contacts", force: :cascade do |t|
+    t.string  "token"
     t.string  "first_name"
     t.string  "last_name"
     t.string  "phone_number"
@@ -24,9 +25,13 @@ ActiveRecord::Schema.define(version: 20150718210350) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "token"
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
+    t.string "image_url"
+    t.float  "lat"
+    t.float  "lon"
   end
 
 end
