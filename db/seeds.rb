@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-dum = User.create!(token: "1",
+dum = User.create!(token: "0",
   first_name: "Dum",
   last_name: "Dum",
   phone_number: "dum_number",
@@ -43,27 +43,27 @@ pete = User.create!(token: "3",
 
 
 
-bo_contact = Contact.create!(token: "",
+bo_contact = Contact.create!(token: "1",
   first_name: "Bo",
   last_name: "Guthrie",
   phone_number: "bo_number")
 
-nick_contact = Contact.create!(token: "",
+nick_contact = Contact.create!(token: "2",
   first_name: "Nick",
   last_name: "Siefken",
   phone_number: "nick_number")
 
-pete_contact = Contact.create!(token: "",
+pete_contact = Contact.create!(token: "3",
   first_name: "Pete",
   last_name: "Macaluso",
   phone_number: "pete_number")
 
-steve_contact = Contact.create!(token: "",
+steve_contact = Contact.create!(token: "4",
   first_name: "Steve",
   last_name: "Dude",
   phone_number: "1234567890")
 
-bo.contacts.create(token: "",
+bo.contacts.create(token: "2",
   first_name: "Nick",
   last_name: "Siefken",
   phone_number: "nick_number")
