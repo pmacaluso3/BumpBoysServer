@@ -38,13 +38,15 @@ class ServersController < ApplicationController
 
       # for each user, prepare the string of image urls for the mutual contacts within 1000 feet of that user
       @relationships.each do |user_token, mutual_contacts_list|
-        this_users_nearby_friends = {}
+        this_users_nearby_friends_images = []
         mutual_contacts_list.each do |mutual_contact_token, distance|
           if distance < 1000
-
+            this_users_nearby_friends_images << User.find_by(token: mutual_contact_token).image_url
           end
         end
+        User.find_by(token: user_token).nearby_friends_images = this_users_nearby_friends_images.join(",")
       end
+
     # end
     render 'runs/info'
   end
