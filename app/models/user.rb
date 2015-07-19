@@ -6,4 +6,10 @@ class User < ActiveRecord::Base
       User.find_by(phone_number: contact.phone_number)
     end
   end
+
+  def has_as_contact(phone_number)
+    self.contacts.select do |contact|
+
+    end
+  end
 end
