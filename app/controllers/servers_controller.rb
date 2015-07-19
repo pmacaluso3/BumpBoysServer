@@ -1,7 +1,7 @@
-
+require 'houston'
+APN = Houston::Client.development
 
 class ServersController < ApplicationController
-  # APN = Houston::Client.development
 
   def run
     feet_in_one_lat = 364402.01
@@ -46,23 +46,30 @@ class ServersController < ApplicationController
         this_users_nearby_friends_images = []
         this_users_nearby_friends_tokens = []
         this_users_nearby_friends_tokens_previous = User.find_by(token: user_token).nearby_friends_tokens.split(",")
-        puts this_users_nearby_friends_tokens_previous
+        puts "*************** #{this_users_nearby_friends_tokens_previous}"
         mutual_contacts_list.each do |mutual_contact_token, distance|
           if distance < 1000
             this_users_nearby_friends_images << User.find_by(token: mutual_contact_token).image_url
             this_users_nearby_friends_tokens << mutual_contact_token
           end
         end
-        User.find_by(token: user_token).nearby_friends_images = this_users_nearby_friends_images.join(",")
+        u = User.find_by(token: user_token)
+        u.nearby_friends_images = this_users_nearby_friends_images.join(",")
+        u.save
 
         # determine which friends are new to this user's radius, and send this user an apn for each one
         # finally, set this user's string of nearby user tokens to the new list
         new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
+        puts ">>>>>>>>>>>>>>>>>>>> #{new_friends_in_radius}"
         new_friends_in_radius.each do |friend_token|
           friend = User.find_by(token: friend_token)
           send_apn(user_token, friend.first_name, friend.last_name)
         end
-        User.find_by(token: user_token).nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
+        u = User.find_by(token: user_token)
+        u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
+        u.save
+        puts "&&&&&&&&&&&&&&&&&&&&&& #{User.find_by(token: user_token).nearby_friends_tokens}"
+        puts "&&&&&&&&&&&&&&&&&&&&&& #{User.find_by(token: user_token).nearby_friends_images}"
       end
 
     # end
@@ -218,7 +225,7 @@ class ServersController < ApplicationController
   #   notification.sound = "sosumi.aiff"
   #   notification.category = "INVITE_CATEGORY"
   #   notification.content_available = true
-  #   notification.custom_data = {foo: "bar"}
+  #   # notification.custom_data = {foo: "bar"}
   #   APN.push(notification)
   # end
 end
