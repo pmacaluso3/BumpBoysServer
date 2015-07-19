@@ -47,10 +47,13 @@ class DistancesController < ApplicationController
     @user = User.find_by(token: params[:token])
     @user.lat = params[:lat]
     @user.lon = params[:lon]
+    @token = params[:token]
+    @lat = params[:lat]
+    @lon = params[:lon]
   end
 
   def location_params
-    params.permit
+    # params.permit
   end
 
 
