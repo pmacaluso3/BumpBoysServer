@@ -30,8 +30,6 @@ class DistancesController < ApplicationController
       d_lon_in_feet: d_lon_in_feet,
       dist_in_feet: dist_in_feet
     }
-    puts "**************** #{Time.now}"
-    puts "**************** #{hash[dist_in_feet]}"
     @hash = hash
 
 
@@ -43,12 +41,15 @@ class DistancesController < ApplicationController
   end
 
   def update
-    puts "*************** #{params.inspect}"
     @user = User.find_by(token: "<#{params[:token]}>")
+    puts "***************************** #{@user.inspect}"
     @user.lat = params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
     @nearby_friends = @user.nearby_friends_images.split(",")
+    if @nearby_friends.empty?
+      @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
+    end
     puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@nearby_friends}"
     respond_to do |format|
       format.json {render json: {images: @nearby_friends}}

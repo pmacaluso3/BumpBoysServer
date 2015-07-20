@@ -63,6 +63,7 @@ class ServersController < ApplicationController
         puts ">>>>>>>>>>>>>>>>>>>> #{new_friends_in_radius}"
         new_friends_in_radius.each do |friend_token|
           friend = User.find_by(token: friend_token)
+          puts "^^^^^^^^^^^^^^^^^^^^^^^ #{first} #{last} is now near you!"
           send_apn(user_token, friend.first_name, friend.last_name)
         end
         u = User.find_by(token: user_token)
