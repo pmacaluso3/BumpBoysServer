@@ -48,9 +48,10 @@ class DistancesController < ApplicationController
     @user.lat = params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
-    puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@user.nearby_friends_images}"
+    @nearby_friends = @user.nearby_friends_images.split(",")
+    puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@nearby_friends}"
     respond_to do |format|
-      format.json {render json: {images: @user.nearby_friends_images}}
+      format.json {render json: {images: @nearby_friends}}
       format.html {render 'distances/show'}
     end
   end
