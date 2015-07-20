@@ -37,7 +37,8 @@ nick = User.create!(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c
   lat: 41.888378,
   lon: -87.636513,
   nearby_friends_images: "",
-  nearby_friends_tokens: ""
+  nearby_friends_tokens: "",
+  lat_lon_log: ""
   )
 
 pete = User.create!(token: "3",
@@ -48,7 +49,8 @@ pete = User.create!(token: "3",
   lat: 41.788378,
   lon: -87.836513,
   nearby_friends_images: "",
-  nearby_friends_tokens: ""
+  nearby_friends_tokens: "",
+  lat_lon_log: ""
   )
 
 
