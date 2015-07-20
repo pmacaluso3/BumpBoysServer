@@ -48,7 +48,7 @@ class ServersController < ApplicationController
         this_users_nearby_friends_tokens_previous = User.find_by(token: user_token).nearby_friends_tokens.split(",")
         puts "*************** #{this_users_nearby_friends_tokens_previous}"
         mutual_contacts_list.each do |mutual_contact_token, distance|
-          if distance < 10000000
+          if distance < 1000
             this_users_nearby_friends_images << User.find_by(token: mutual_contact_token).image_url
             this_users_nearby_friends_tokens << mutual_contact_token
           end
