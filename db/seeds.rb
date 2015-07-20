@@ -13,7 +13,8 @@ dum = User.create!(token: "0",
   lat: 41.898378,
   lon: -87.635513,
   nearby_friends_images: "",
-  nearby_friends_tokens: ""
+  nearby_friends_tokens: "",
+  lat_lon_log: ""
   )
 
 bo = User.create!(token: "<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a1072a31bbf4>",
@@ -24,7 +25,8 @@ bo = User.create!(token: "<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a
   lat: 41.898378,
   lon: -87.635513,
   nearby_friends_images: "",
-  nearby_friends_tokens: ""
+  nearby_friends_tokens: "",
+  lat_lon_log: ""
   )
 
 nick = User.create!(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>",

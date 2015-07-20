@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150718210350) do
     t.float  "lon"
     t.string "nearby_friends_images"
     t.string "nearby_friends_tokens"
+    t.string "lat_lon_log"
   end
 
 end
