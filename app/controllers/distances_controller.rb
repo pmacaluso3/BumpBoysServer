@@ -42,11 +42,14 @@ class DistancesController < ApplicationController
 
   def update
     @user = User.find_by(token: "<#{params[:token]}>")
-    puts "***************************** #{@user.inspect}"
-    @user.lat = params[:lat].to_f
+    @user.lat =  params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
-    puts "***************************** #{@user.inspect}"
+    log = ""
+    File.open("/Users/apprentice/Desktop/logs.txt", "r") {|f| log += f.read}
+    log += "#{@user.lat}, #{@user.lon}\n"
+    File.open("/Users/apprentice/Desktop/logs.txt", "w+") {|f| f.write(log)}
+    # puts "&&&&&&&&&&&&&&&&&&&&&& #{@use}"
     @nearby_friends = @user.nearby_friends_images.split(",")
     if @nearby_friends.empty?
       @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
