@@ -46,6 +46,7 @@ class DistancesController < ApplicationController
     @user.lat = params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
+    puts "***************************** #{@user.inspect}"
     @nearby_friends = @user.nearby_friends_images.split(",")
     if @nearby_friends.empty?
       @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
