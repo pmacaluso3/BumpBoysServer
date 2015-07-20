@@ -3,9 +3,9 @@ require 'houston'
 # Environment variables are automatically read, or can be overridden by any specified options. You can also
 # conveniently use `Houston::Client.development` or `Houston::Client.production`.
 APN = Houston::Client.development
-APN.certificate = File.read("bumpboys.pem")
+APN.certificate = File.read("config/initializers/bumpboys.pem")
 
-
+# Move contents below this line to another file
 
 
 token = "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>"
@@ -23,7 +23,6 @@ notification.custom_data = {foo: "bar"}
 
 # And... sent! That's all it takes.
 APN.push(notification)
-
 
 
 
