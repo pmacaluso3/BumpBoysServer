@@ -56,6 +56,16 @@ class DistancesController < ApplicationController
       format.json {render json: {images: @nearby_friends}}
       format.html {render 'distances/show'}
     end
+    request_counter = RequestCounter.first
+    request_counter.counter += 1
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ there have been #{request_counter.counter} requests since the last tick"
+    request_counter.save
+    if request_counter.counter >= User.all.length
+      request_counter.counter = 0
+      request_counter.save
+      puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ running the server..."
+      return redirect_to('/run')
+    end
   end
 
   def location_params

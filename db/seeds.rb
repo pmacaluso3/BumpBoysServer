@@ -92,3 +92,4 @@ pete.contacts << steve_contact
 # puts pete.contacts.inspect
 
 puts User.second.inspect
+rc = RequestCounter.create!
