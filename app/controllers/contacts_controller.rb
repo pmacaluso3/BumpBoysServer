@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   def create
     @params = params
-    # puts "********************** #{params.inspect}"
+    puts "********************** params from a contacts request was #{params.inspect}"
   end
 
 
