@@ -2,8 +2,36 @@ require 'houston'
 APN = Houston::Client.development
 
 class ServersController < ApplicationController
+  def update
+    @user = User.find_by(token: "<#{params[:token]}>")
+    @user.lat =  params[:lat].to_f
+    @user.lon = params[:lon].to_f
+    @user.lat_lon_log += "#{@user.lat}, #{@user.lon};"
+    @user.save
+    puts "**************************** #{@user.lat_lon_log}"
+    @nearby_friends = @user.nearby_friends_images.split(",")
+    if @nearby_friends.empty?
+      @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
+    end
+    puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@nearby_friends}"
+    respond_to do |format|
+      format.json {render json: {images: @nearby_friends}}
+      format.html {render 'distances/show'}
+    end
+    request_counter = RequestCounter.first
+    request_counter.counter += 1
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ there have been #{request_counter.counter} requests since the last tick"
+    request_counter.save
+    if request_counter.counter >= User.all.length
+      request_counter.counter = 0
+      request_counter.save
+      puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ running the server..."
+      run
+    end
+  end
 
   def run
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@ run was triggered..."
     feet_in_one_lat = 364402.01
     feet_in_one_lon = 272541.72
 
@@ -72,11 +100,11 @@ class ServersController < ApplicationController
       end
 
     # end
-    render 'runs/info'
+    # render 'runs/info'
   end
 
   private
-  def send_apn(token,first,last)
+  def send_apn(token,first,last)v
     APN.certificate = File.read("config/initializers/bumpboys.pem")
     notification = Houston::Notification.new(device: token)
     notification.alert = "#{first} #{last} is now near you!"
