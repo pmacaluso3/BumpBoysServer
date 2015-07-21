@@ -5,5 +5,5 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
-
-#
+desc "caulculate the distances between mutual contacts and send APNs"
+task :map => :environment

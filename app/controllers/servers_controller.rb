@@ -18,7 +18,6 @@ class ServersController < ApplicationController
         end
       end
     end
-
     # determining the distance to each mutual contact for each user
     @relationships = {}
     @mutual_contacts_master.each do |user_token, mutual_contacts_list|
@@ -37,35 +36,37 @@ class ServersController < ApplicationController
         # @relationships[user_token]["udid"] = mutual_contact.udid
       end
     end
-  end
 
-  # for each user, prepare the string of image urls for the mutual contacts within 1000 feet of that user
-  # also, create an array of the tokens of all of this user's nearby friends
-  @relationships.each do |user_token, mutual_contacts_list|
-    this_users_nearby_friends_images = []
-    this_users_nearby_friends_tokens = []
-    this_users_nearby_friends_tokens_previous = User.find_by(token: user_token).nearby_friends_tokens.split(",")
-    mutual_contacts_list.each do |mutual_contact_token, distance|
-      if distance < 1000
-        this_users_nearby_friends_images << User.find_by(token: mutual_contact_token).image_url
-        this_users_nearby_friends_tokens << mutual_contact_token
+    # for each user, prepare the string of image urls for the mutual contacts within 1000 feet of that user
+    # also, create an array of the tokens of all of this user's nearby friends
+
+    if @relationships
+      @relationships.each do |user_token, mutual_contacts_list|
+        this_users_nearby_friends_images = []
+        this_users_nearby_friends_tokens = []
+        this_users_nearby_friends_tokens_previous = User.find_by(token: user_token).nearby_friends_tokens.split(",")
+        mutual_contacts_list.each do |mutual_contact_token, distance|
+          if distance < 1000
+            this_users_nearby_friends_images << User.find_by(token: mutual_contact_token).image_url
+            this_users_nearby_friends_tokens << mutual_contact_token
+          end
+        end
+        u = User.find_by(token: user_token)
+        u.nearby_friends_images = this_users_nearby_friends_images.join(",")
+        u.save
+
+        # determine which friends are new to this user's radius, and send this user an apn for each one
+        # finally, set this user's string of nearby user tokens to the new list
+        new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
+        new_friends_in_radius.each do |friend_token|
+          friend = User.find_by(token: friend_token)
+          send_apn(user_token, friend.first_name, friend.last_name)
+        end
+        u = User.find_by(token: user_token)
+        u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
+        u.save
       end
     end
-    u = User.find_by(token: user_token)
-    u.nearby_friends_images = this_users_nearby_friends_images.join(",")
-    u.save
-
-    # determine which friends are new to this user's radius, and send this user an apn for each one
-    # finally, set this user's string of nearby user tokens to the new list
-    new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
-    new_friends_in_radius.each do |friend_token|
-      friend = User.find_by(token: friend_token)
-      send_apn(user_token, friend.first_name, friend.last_name)
-    end
-    u = User.find_by(token: user_token)
-    u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
-    u.save
-    send_apn("<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a1072a31bbf4>","yo","momma")
   end
 
   def update
@@ -84,7 +85,7 @@ class ServersController < ApplicationController
     end
   end
 
-  private
+  # private
   def send_apn(token,first,last)
     APN.certificate = File.read("config/initializers/bumpboys.pem")
     notification = Houston::Notification.new(device: token)

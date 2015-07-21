@@ -79,17 +79,8 @@ bo.contacts.create(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9
   first_name: "Nick",
   last_name: "Siefken",
   phone_number: "nick_number")
-puts bo.contacts.inspect
-# puts bo.contacts.inspect
 nick.contacts << bo_contact
-# puts nick.contacts.inspect
 pete.contacts << nick_contact
-# nick.contacts = [pete_contact, bo_contact]
-# puts pete.contacts.inspect
 nick.contacts << pete_contact
-# puts nick.contacts.inspect
 pete.contacts << steve_contact
-# puts pete.contacts.inspect
 
-puts User.second.inspect
-rc = RequestCounter.create!

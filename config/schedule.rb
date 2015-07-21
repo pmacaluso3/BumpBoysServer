@@ -2,8 +2,8 @@
 
 # Use this file to easily define all of your cron jobs.
 #
-set :environment, "development"
-set :output, {:error => "log/error.log", :standard => "log/cron.log"}
+# set :environment, "development"
+# set :output, {:error => "log/error.log", :standard => "log/cron.log"}
 
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 puts "before SCHEDULE"

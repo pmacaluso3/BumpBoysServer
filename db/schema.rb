@@ -17,11 +17,13 @@ ActiveRecord::Schema.define(version: 20150721114242) do
   enable_extension "plpgsql"
 
   create_table "contacts", force: :cascade do |t|
-    t.string  "token"
-    t.string  "first_name"
-    t.string  "last_name"
-    t.string  "phone_number"
-    t.integer "user_id"
+    t.string   "token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "request_counters", force: :cascade do |t|
@@ -29,16 +31,18 @@ ActiveRecord::Schema.define(version: 20150721114242) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "token"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone_number"
-    t.string "image_url"
-    t.float  "lat"
-    t.float  "lon"
-    t.string "nearby_friends_images"
-    t.string "nearby_friends_tokens"
-    t.string "lat_lon_log"
+    t.string   "token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "image_url"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "nearby_friends_images"
+    t.string   "nearby_friends_tokens"
+    t.string   "lat_lon_log"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

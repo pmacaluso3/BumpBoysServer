@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'test#index'
   get 'update' => 'servers#update'
   get 'run' => 'servers#map'
+  post 'contacts' => 'contacts#create'
+  post 'user' => 'users#create'
   # mount Resque::Server.new, at: "/resque"
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
