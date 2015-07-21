@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :nearby_friends_images
       t.string :nearby_friends_tokens
       t.string :lat_lon_log
+      t.timestamps
     end
   end
 end

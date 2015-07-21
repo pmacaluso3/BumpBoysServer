@@ -6,9 +6,9 @@ class ServersController < ApplicationController
     @user = User.find_by(token: "<#{params[:token]}>")
     @user.lat =  params[:lat].to_f
     @user.lon = params[:lon].to_f
-    @user.lat_lon_log += "#{@user.lat}, #{@user.lon};"
+    @user.lat_lon_log += "#{@user.lat}, #{@user.lon}, #{Time.now};"
     @user.save
-    puts "**************************** #{@user.lat_lon_log}"
+    # puts "**************************** #{@user.lat_lon_log}"
     @nearby_friends = @user.nearby_friends_images.split(",")
     if @nearby_friends.empty?
       @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
@@ -107,10 +107,10 @@ class ServersController < ApplicationController
   def send_apn(token,first,last)v
     APN.certificate = File.read("config/initializers/bumpboys.pem")
     notification = Houston::Notification.new(device: token)
-    notification.alert = "#{first} #{last} is now near you!"
+    notification.alert = "#{first} #{last} is now near you! And the time is #{Time.now}"
 
     # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
-    notification.badge = 57
+    # notification.badge = 57
     notification.sound = "sosumi.aiff"
     notification.category = "INVITE_CATEGORY"
     notification.content_available = true
