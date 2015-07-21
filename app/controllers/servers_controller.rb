@@ -8,30 +8,25 @@ class ServersController < ApplicationController
     @user.lon = params[:lon].to_f
     @user.lat_lon_log += "#{@user.lat}, #{@user.lon}, #{Time.now};"
     @user.save
-    # puts "**************************** #{@user.lat_lon_log}"
     @nearby_friends = @user.nearby_friends_images.split(",")
     if @nearby_friends.empty?
       @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
     end
-    puts "<<<<<<<<<<<<<<<<<<<<<<<< #{@nearby_friends}"
-    respond_to do |format|
-      format.json {render json: {images: @nearby_friends}}
-      format.html {render 'distances/show'}
-    end
     request_counter = RequestCounter.first
     request_counter.counter += 1
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ there have been #{request_counter.counter} requests since the last tick"
     request_counter.save
     if request_counter.counter >= User.all.length
       request_counter.counter = 0
       request_counter.save
-      puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ running the server..."
       run
+    end
+    respond_to do |format|
+      format.json {render json: {images: @nearby_friends}}
+      format.html {render 'servers/show'}
     end
   end
 
   def run
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@ run was triggered..."
     feet_in_one_lat = 364402.01
     feet_in_one_lon = 272541.72
 
@@ -86,17 +81,13 @@ class ServersController < ApplicationController
         # determine which friends are new to this user's radius, and send this user an apn for each one
         # finally, set this user's string of nearby user tokens to the new list
         new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
-        # puts ">>>>>>>>>>>>>>>>>>>> #{new_friends_in_radius}"
         new_friends_in_radius.each do |friend_token|
           friend = User.find_by(token: friend_token)
-          puts "^^^^^^^^^^^^^^^^^^^^^^^ #{friend.first_name} #{friend.last_name} (token = #{user_token}) is now near you!"
           send_apn(user_token, friend.first_name, friend.last_name)
         end
         u = User.find_by(token: user_token)
         u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
         u.save
-        puts "&&&&&&&&&&&&&&&&&&&&&& #{User.find_by(token: user_token).nearby_friends_tokens}"
-        puts "&&&&&&&&&&&&&&&&&&&&&& #{User.find_by(token: user_token).nearby_friends_images}"
       end
 
     # end
@@ -115,8 +106,7 @@ class ServersController < ApplicationController
     notification.category = "INVITE_CATEGORY"
     notification.content_available = true
     notification.custom_data = {foo: "bar"}
-    puts "!!!!!!!!!!!!!!!!!!!!!!!!!#{notification.inspect}"
-    # And... sent! That's all it takes.
+
     APN.push(notification)
 
   end
