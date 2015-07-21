@@ -67,6 +67,7 @@ class ServersController < ApplicationController
         u.save
       end
     end
+    send_apn("<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>",'hey','you')
   end
 
   def update
@@ -89,7 +90,7 @@ class ServersController < ApplicationController
   def send_apn(token,first,last)
     APN.certificate = File.read("config/initializers/bumpboys.pem")
     notification = Houston::Notification.new(device: token)
-    notification.alert = "#{first} #{last} is now near you! And the time is #{Time.now}"
+    notification.alert = "#{first} #{last} is now near you! And the time is #{Time.now} coming from wait"
 
     # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
     notification.badge = 0
