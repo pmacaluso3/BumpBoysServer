@@ -91,7 +91,7 @@ class ServersController < ApplicationController
       end
 
     # end
-    # render 'runs/info'
+    render 'servers/run'
   end
 
   private
