@@ -79,4 +79,4 @@ desc "find the distances between mutual contacts"
     u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
     u.save
   end
-heroend
+end
