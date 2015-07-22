@@ -74,7 +74,7 @@ class ServersController < ApplicationController
     @user = User.find_by(token: "<#{params[:token]}>")
     @user.lat =  params[:lat].to_f
     @user.lon = params[:lon].to_f
-    @user.lat_lon_log += "#{@user.lat}, #{@user.lon}, #{Time.now};"
+    # @user.lat_lon_log += "#{@user.lat}, #{@user.lon}, #{Time.now};"
     @user.save
     @nearby_friends = @user.nearby_friends_images.split(",")
     if @nearby_friends.empty?
