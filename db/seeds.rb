@@ -5,22 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-dum = User.create!(token: "0",
-  first_name: "Dum",
-  last_name: "Dum",
-  phone_number: "dum_number",
-  image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
-  lat: 41.898378,
-  lon: -87.635513,
-  nearby_friends_images: "",
-  nearby_friends_tokens: "",
-  password: "password"
-  )
 
 bo = User.create!(token: "<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a1072a31bbf4>",
   first_name: "Bo",
   last_name: "Guthrie",
-  phone_number: "bo_number",
+  stored_phone_number: "2058070850",
   image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
   lat: 41.898378,
   lon: -87.635513,
@@ -32,7 +21,7 @@ bo = User.create!(token: "<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a
 nick = User.create!(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>",
   first_name: "Nick",
   last_name: "Siefken",
-  phone_number: "nick_number",
+  stored_phone_number: "3096455208",
   image_url: "https://pbs.twimg.com/profile_images/3406647874/55e6e2b3a2cd929d478213bca7ea346a.jpeg",
   lat: 41.888378,
   lon: -87.636513,
@@ -41,10 +30,10 @@ nick = User.create!(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c
   password: "password"
   )
 
-pete = User.create!(token: "3",
+pete = User.create!(token: "<3>",
   first_name: "Pete",
   last_name: "Macaluso",
-  phone_number: "pete_number",
+  stored_phone_number: "8132634315",
   image_url: "https://pbs.twimg.com/profile_images/580334037211975680/ZYqCIBVb.jpg",
   lat: 41.788378,
   lon: -87.836513,
@@ -55,32 +44,27 @@ pete = User.create!(token: "3",
 
 
 
-bo_contact = Contact.create!(token: "<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a1072a31bbf4>",
+bo_contact = Contact.create!(
   first_name: "Bo",
   last_name: "Guthrie",
-  phone_number: "bo_number")
+  stored_phone_number: "2058070850")
 
-nick_contact = Contact.create!(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>",
+nick_contact = Contact.create!(
   first_name: "Nick",
   last_name: "Siefken",
-  phone_number: "nick_number")
+  stored_phone_number: "3096455208")
 
-pete_contact = Contact.create!(token: "3",
+pete_contact = Contact.create!(
   first_name: "Pete",
   last_name: "Macaluso",
-  phone_number: "pete_number")
+  stored_phone_number: "8132634315")
 
-steve_contact = Contact.create!(token: "4",
-  first_name: "Steve",
-  last_name: "Dude",
-  phone_number: "1234567890")
 
-bo.contacts.create(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>",
+bo.contacts.create(
   first_name: "Nick",
   last_name: "Siefken",
-  phone_number: "nick_number")
+  stored_phone_number: "3096455208")
 nick.contacts << bo_contact
 pete.contacts << nick_contact
 nick.contacts << pete_contact
-pete.contacts << steve_contact
 

@@ -13,11 +13,6 @@ class SessionsController < ApplicationController
         format.json {render json: {success: 0}}
       end
     end
-    @params = params
-    respond_to do |format|
-      format.html {render 'sessions/create'}
-      format.json {render json: "You made it to create session"}
-    end
   end
 
   def new
