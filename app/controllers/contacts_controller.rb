@@ -1,16 +1,15 @@
 require 'json'
 class ContactsController < ApplicationController
   def create
-    # puts "************************************ #{params.inspect}"
     new_contacts = []
-    params = JSON.parse(params)
-    puts "************************************ #{params.inspect}"
-    params.each do |key,value|
+    contact_info = JSON.parse(params)
+    contact_info.each do |key,value|
       if key =~ /\Aperson/
         new_contacts << value
       end
     end
-    @user = User.find_by("<#{new_contacts[0][:user_token]}>")
+    logger.info contact_info
+    @user = User.find_by(token: "<#{new_contacts[0][:user_token]}>")
     @user.contacts.each {|c|c.destroy}
     new_contacts.each do |contact|
       contact[:last_name] = "" if contact[:last_name] == "null"
