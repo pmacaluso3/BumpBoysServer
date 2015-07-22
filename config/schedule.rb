@@ -8,7 +8,6 @@
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 every 1.minute do
   rake "map"
-
 end
 
 # http://en.wikipedia.org/wiki/Cron

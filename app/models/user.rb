@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   def contacts_who_are_also_users
     self.contacts.select do |contact|
-      User.find_by(phone_number: contact.phone_number)
+      User.find_by(stored_phone_number: contact.phone_number)
     end
   end
 
@@ -17,4 +17,10 @@ class User < ActiveRecord::Base
   def phone_number=(incoming_number)
     self.stored_phone_number = incoming_number.gsub(/\D/,"").gsub(/\A1/,"")
   end
+
+  def phone_number
+    self.stored_phone_number
+  end
+
 end
+
