@@ -1,7 +1,5 @@
 class ContactsController < ApplicationController
   def create
-    @user = User.find_by("<#{user_token}>")
-    @user.contacts.each {|c|c.destroy}
     puts "************************************ #{params.inspect}"
     new_contacts = []
     params.each do |key,value|
@@ -9,6 +7,8 @@ class ContactsController < ApplicationController
         new_contacts << value
       end
     end
+    @user = User.find_by("<#{new_contacts[0][:user_token]}>")
+    @user.contacts.each {|c|c.destroy}
     new_contacts.each do |contact|
       contact[:last_name] = "" if contact[:last_name] == "null"
       Contact.create(first_name: contact[:first_name], last_name: contact[:last_name], phone_number: contact[:number], user_id: @user.id)
