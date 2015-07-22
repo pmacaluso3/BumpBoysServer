@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20150721114242) do
     t.float    "lon"
     t.string   "nearby_friends_images"
     t.string   "nearby_friends_tokens"
-    t.string   "lat_lon_log"
+    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

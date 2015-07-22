@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :contacts
+  has_secure_password
 
   def contacts_who_are_also_users
     self.contacts.select do |contact|

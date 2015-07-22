@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.float :lon
       t.string :nearby_friends_images
       t.string :nearby_friends_tokens
-      t.string :lat_lon_log
+      t.string :password_digest
       t.timestamps
     end
   end
