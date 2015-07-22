@@ -2,13 +2,13 @@ require 'json'
 class ContactsController < ApplicationController
   def create
     new_contacts = []
-    logger.info "**************** PARAMS ****************"
-    logger.info "#{params.keys}"
-    logger.info "**************** END PARAMS ****************"
+    # logger.info "**************** PARAMS ****************"
+    # logger.info "#{params.keys}"
+    # logger.info "**************** END PARAMS ****************"
 
-    logger.info "**************** REQUEST ****************"
-    logger.info "#{request.inspect}"
-    logger.info "**************** END REQUEST ****************"
+    # logger.info "**************** REQUEST ****************"
+    # logger.info "#{request.inspect}"
+    # logger.info "**************** END REQUEST ****************"
 
     # contact_info = JSON.parse(params)
     params.each do |key,value|
@@ -17,12 +17,17 @@ class ContactsController < ApplicationController
       end
     end
     @user = User.find_by(token: "<#{new_contacts[0][:user_token]}>")
-    logger.info "****************************************** #{@user}"
-    logger.info "****************************************** #{new_contacts}"
+    logger.info "****************************************** the user is #{@user}"
+    logger.info "****************************************** the new contacts are #{new_contacts}"
     @user.contacts.each {|c|c.destroy}
     new_contacts.each do |contact|
       contact[:last_name] = "" if contact[:last_name] == "null"
-      Contact.create(first_name: contact[:first_name], last_name: contact[:last_name], phone_number: contact[:number], user_id: @user.id)
+      c = Contact.new(first_name: contact[:first_name], last_name: contact[:last_name], phone_number: contact[:number], user: @user)
+      if c.save
+        logger.info "saved a contact"
+      else
+        logger.info "failed to save a contact"
+      end
     end
     # @contact = Contact.create(contact_params_without_user_token)
     # @contact.user_id = @user.id
