@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150721114242) do
     t.string   "token"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "phone_number"
+    t.string   "stored_phone_number"
     t.string   "image_url"
     t.float    "lat"
     t.float    "lon"

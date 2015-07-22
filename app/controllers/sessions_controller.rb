@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     phone_number = format_phone_number(params[:phone_number])
-    @user = User.find_by(phone_number)
+    @user = User.find_by(stored_phone_number: phone_number)
     if @user.authenticate(params[:password])
       respond_to do |format|
         format.json {render json: {success: 1}}

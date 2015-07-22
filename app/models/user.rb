@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
       contact.phone_number == test_contact.phone_number
     end.any?
   end
+
+  def phone_number=(incoming_number)
+    self.stored_phone_number = incoming_number.gsub(/\D/,"").gsub(/\A1/,"")
+  end
 end
