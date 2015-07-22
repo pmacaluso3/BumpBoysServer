@@ -8,8 +8,9 @@ class ContactsController < ApplicationController
         new_contacts << value
       end
     end
-    logger.info contact_info
     @user = User.find_by(token: "<#{new_contacts[0][:user_token]}>")
+    logger.info "****************************************** #{@user}"
+    logger.info "****************************************** #{new_contacts}"
     @user.contacts.each {|c|c.destroy}
     new_contacts.each do |contact|
       contact[:last_name] = "" if contact[:last_name] == "null"
