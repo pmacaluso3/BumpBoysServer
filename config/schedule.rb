@@ -6,13 +6,10 @@
 # set :output, {:error => "log/error.log", :standard => "log/cron.log"}
 
 # It's helpful, but not entirely necessary to understand cron before proceeding.
-puts "before SCHEDULE"
 every 1.minute do
   rake "map"
-puts "inside SCHEDULE"
 
 end
-puts "after SCHEDULE"
 
 # http://en.wikipedia.org/wiki/Cron
 # Example:
