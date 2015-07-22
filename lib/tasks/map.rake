@@ -79,5 +79,4 @@ desc "find the distances between mutual contacts"
     u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
     u.save
   end
-  send_apn("<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c9b402fec379ca>",'hey','you')
-end
+heroend

@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   get 'run' => 'servers#map'
   post 'contacts' => 'contacts#create'
   post 'users' => 'users#create'
-  post 'sessions' => 'sessions#create'
+  # post 'sessions' => 'sessions#create'
   get 'form' => 'sessions#new'
+
+  post 'sessions', to: proc { [200, {}, ['']] }
+
   # mount Resque::Server.new, at: "/resque"
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
