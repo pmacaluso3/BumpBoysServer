@@ -1,7 +1,10 @@
+require 'json'
 class ContactsController < ApplicationController
   def create
-    puts "************************************ #{params.inspect}"
+    # puts "************************************ #{params.inspect}"
     new_contacts = []
+    params = JSON.parse(params)
+    puts "************************************ #{params.inspect}"
     params.each do |key,value|
       if key =~ /\Aperson/
         new_contacts << value
