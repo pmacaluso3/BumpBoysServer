@@ -30,6 +30,7 @@ class ContactsController < ApplicationController
       format.json {render json: "You made it to create contact"}
     end
 
+
   end
 
 end
