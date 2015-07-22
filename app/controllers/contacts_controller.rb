@@ -3,7 +3,7 @@ class ContactsController < ApplicationController
   def create
     new_contacts = []
     logger.info "**************** PARAMS ****************"
-    logger.info "#{params.inspect}"
+    logger.info "#{params.keys}"
     logger.info "**************** END PARAMS ****************"
 
     logger.info "**************** REQUEST ****************"
