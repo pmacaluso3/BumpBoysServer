@@ -1,0 +1,10 @@
+<%= @params %>
+This form is for sessions
+<%= form_for :session, method: "post", url: "/sessions" do |f| %>
+  <%= f.text_field :name %>
+<% end %>
+
+This form is for contacts
+<%= form_for :contact, method: "post", url: "/contacts" do |f| %>
+  <%= f.text_field :name %>
+<% end %>
