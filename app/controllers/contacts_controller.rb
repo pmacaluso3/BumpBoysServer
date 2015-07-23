@@ -17,28 +17,18 @@ class ContactsController < ApplicationController
       end
     end
     @user = User.find_by(token: "<#{new_contacts[0][:user_token]}>")
-    logger.info "****************************************** the user is #{@user}"
-    logger.info "****************************************** the new contacts are #{new_contacts}"
     @user.contacts.each {|c|c.destroy}
+    old_numbers = @user.contacts.map{|c|c.stored_phone_number}
+    new_numbers = new_contacts.map{|c|c.number}
+    numbers_to_delete = old_numbers - new_numbers
+    numbers_to_delete.each do |number|
+      c = Contact.find_by(user_id: @user.id, stored_phone_number: number)
+      c.destroy
+    end
     new_contacts.each do |contact|
       contact[:last_name] = "" if contact[:last_name] == "null"
       c = Contact.new(first_name: contact[:first_name], last_name: contact[:last_name], phone_number: contact[:number], user: @user)
-      if c.save
-        logger.info "saved a contact"
-      else
-        logger.info "failed to save a contact"
-      end
     end
-    # @contact = Contact.create(contact_params_without_user_token)
-    # @contact.user_id = @user.id
-    # puts "********************** here's the new contact: #{@contact.inspect}"
-    # puts "********************** params[:user_token] was #{params[:user_token]}"
-    # puts "********************** params from a contacts request was #{params.inspect}"
-    # if @contact.save
-    #   puts "@@@@@@@@@@@@@@@@@@@@@@@@ the contact saved"
-    # else
-    #   puts "@@@@@@@@@@@@@@@@@@@@@@@@ the contact didn't save"
-    # end
     respond_to do |format|
       format.html {render 'contacts/create'}
       format.json {render json: "You made it to create contact"}

@@ -48,11 +48,13 @@ class ServersController < ApplicationController
         this_users_nearby_friends_tokens_previous = User.find_by(stored_phone_number: user_phone).nearby_friends_tokens.split(",")
         mutual_contacts_list.each do |mutual_contact_phone, distance|
           if distance < 1000
-            this_users_nearby_friends_images << User.find_by(stored_phone_number: mutual_contact_phone).image_url
-            this_users_nearby_friends_tokens << User.find_by(stored_phone_number: mutual_contact_phone).token
+            this_friend = User.find_by(stored_phone_number: mutual_contact_phone)
+            this_friend_info = [this_friend.first_name, this_friend.last_name, this_friend.image_url].join(",")
+            this_users_nearby_friends_infos << this_friend_info
+            this_users_nearby_friends_tokens << this_friend.token
           end
         end
-        u.nearby_friends_images = this_users_nearby_friends_images.join(",")
+        u.nearby_friends_infos = this_users_nearby_friends_infos.join(";")
         # u.save
         # determine which friends are new to this user's radius, and send this user an apn for each one
         # finally, set this user's string of nearby user tokens to the new list
@@ -72,9 +74,8 @@ class ServersController < ApplicationController
     @user = User.find_by(token: "<#{params[:token]}>")
     @user.lat =  params[:lat].to_f
     @user.lon = params[:lon].to_f
-    # @user.lat_lon_log += "#{@user.lat}, #{@user.lon}, #{Time.now};"
     @user.save
-    @nearby_friends = @user.nearby_friends_images.split(",")
+    @nearby_friends = @user.nearby_friends_infos.split(";").map{|info|info.split(",")}
     if @nearby_friends.empty?
       @nearby_friends << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00"
     end
