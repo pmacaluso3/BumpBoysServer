@@ -42,8 +42,8 @@ class ServersController < ApplicationController
 
     if @relationships
       @relationships.each do |user_phone, mutual_contacts_list|
-        u = User.find_by(stored_phone_number: user_phone)
-        if u
+        this_user = User.find_by(stored_phone_number: user_phone)
+        if this_user
           this_users_nearby_friends_infos = []
           this_users_nearby_friends_tokens = []
           this_users_nearby_friends_tokens_previous = User.find_by(stored_phone_number: user_phone).nearby_friends_tokens.split(",")
@@ -55,18 +55,18 @@ class ServersController < ApplicationController
               this_users_nearby_friends_tokens << this_friend.token
             end
           end
-          u.nearby_friends_infos = this_users_nearby_friends_infos.join(";")
+          this_user.nearby_friends_infos = this_users_nearby_friends_infos.join(";")
           # u.save
           # determine which friends are new to this user's radius, and send this user an apn for each one
           # finally, set this user's string of nearby user tokens to the new list
           new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
           new_friends_in_radius.each do |friend_token|
             friend = User.find_by(token: friend_token)
-            send_apn(u.token, friend.first_name, friend.last_name)
+            send_apn(this_user.token, friend.first_name, friend.last_name)
           end
           # u = User.find_by(token: user_token)
-          u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
-          u.save
+          this_user.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
+          this_user.save
         end
       end
     end
@@ -94,7 +94,7 @@ class ServersController < ApplicationController
   def send_apn(token,first,last)
     APN.certificate = File.read("config/initializers/bumpboys.pem")
     notification = Houston::Notification.new(device: token)
-    notification.alert = "#{first} #{last} is now near you! And the time is #{Time.now} coming from wait"
+    notification.alert = "#{first} #{last} is now near you!"
 
     # Notifications can also change the badge count, have a custom sound, have a category identifier, indicate available Newsstand content, or pass along arbitrary data.
     notification.badge = 0
