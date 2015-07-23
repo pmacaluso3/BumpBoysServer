@@ -13,7 +13,7 @@ bo = User.create!(token: "<b13e2dca0322957b7934a6b1f4d500f8dd7b59724db65f6f92f3a
   image_url: "https://pbs.twimg.com/profile_images/443395868134088704/enQ-y1aY.jpeg",
   lat: 41.898378,
   lon: -87.635513,
-  nearby_friends_images: "",
+  nearby_friends_infos: "",
   nearby_friends_tokens: "",
   password: "password"
   )
@@ -25,7 +25,7 @@ nick = User.create!(token: "<1ec07cbae464fde4a109f64646aae9a6fb04101a066bd74d05c
   image_url: "https://pbs.twimg.com/profile_images/3406647874/55e6e2b3a2cd929d478213bca7ea346a.jpeg",
   lat: 41.888378,
   lon: -87.636513,
-  nearby_friends_images: "",
+  nearby_friends_infos: "",
   nearby_friends_tokens: "",
   password: "password"
   )
@@ -37,7 +37,7 @@ pete = User.create!(token: "<3>",
   image_url: "https://pbs.twimg.com/profile_images/580334037211975680/ZYqCIBVb.jpg",
   lat: 41.788378,
   lon: -87.836513,
-  nearby_friends_images: "",
+  nearby_friends_infos: "",
   nearby_friends_tokens: "",
   password: "password"
   )

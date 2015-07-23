@@ -43,7 +43,7 @@ class ServersController < ApplicationController
     if @relationships
       @relationships.each do |user_phone, mutual_contacts_list|
         u = User.find_by(stored_phone_number: user_phone)
-        this_users_nearby_friends_images = []
+        this_users_nearby_friends_infos = []
         this_users_nearby_friends_tokens = []
         this_users_nearby_friends_tokens_previous = User.find_by(stored_phone_number: user_phone).nearby_friends_tokens.split(",")
         mutual_contacts_list.each do |mutual_contact_phone, distance|
