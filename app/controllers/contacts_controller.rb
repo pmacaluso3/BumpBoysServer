@@ -1,16 +1,7 @@
 require 'json'
 class ContactsController < ApplicationController
-  def create
+  def build
     new_contacts = []
-    # logger.info "**************** PARAMS ****************"
-    # logger.info "#{params.keys}"
-    # logger.info "**************** END PARAMS ****************"
-
-    # logger.info "**************** REQUEST ****************"
-    # logger.info "#{request.inspect}"
-    # logger.info "**************** END REQUEST ****************"
-
-    # contact_info = JSON.parse(params)
     params.each do |key,value|
       if key =~ /\Aperson/
         new_contacts << value
@@ -33,7 +24,18 @@ class ContactsController < ApplicationController
       format.html {render 'contacts/create'}
       format.json {render json: "You made it to create contact"}
     end
+  end
 
+
+  def create
+    @user = User.find_by(id: params[:user_id])
+    @contact = User.find_by(id: params[:contact_id])
+    Contact.create(first_name: @contact.first_name, last_name: @contact.last_name, stored_phone_number: @contact.stored_phone_number, user: @user)
+    redirect_to '/'
+  end
+
+  private
+  def contact_params
 
   end
 
