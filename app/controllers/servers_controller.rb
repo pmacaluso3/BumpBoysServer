@@ -83,7 +83,7 @@ class ServersController < ApplicationController
       @nearby_friends_first_names << "Xhibit"
     end
     respond_to do |format|
-      format.json {render json: {images: @nearby_friends_images, names: @nearby_friends_first_names}}
+      format.json {render json: {data: {images: @nearby_friends_images, names: @nearby_friends_first_names}}}
       format.html {render 'servers/show'}
     end
   end
