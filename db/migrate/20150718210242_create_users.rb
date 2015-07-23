@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :image_url
       t.float :lat
       t.float :lon
-      t.string :nearby_friends_images
+      t.string :nearby_friends_infos
       t.string :nearby_friends_tokens
       t.string :password_digest
       t.timestamps
