@@ -1,0 +1,13 @@
+
+
+<h1>
+  Create a new user
+</h1>
+<%= form_for :user, method: "POST", url: users_path do |f|%>
+  <%= f.text_field :token, placeholder: "token" %>
+  <%= f.text_field :first_name, placeholder: "first_name" %>
+  <%= f.text_field :last_name, placeholder: "last_name" %>
+  <%= f.text_field :stored_phone_number, placeholder: "stored_phone_number" %>
+  <%= f.text_field :image_url, placeholder: "image_url" %>
+  <%= f.submit %>
+<% end %>

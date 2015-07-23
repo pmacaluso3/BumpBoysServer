@@ -3,13 +3,17 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  root 'test#index'
+  root 'admin#index'
   get 'update' => 'servers#update'
   get 'run' => 'servers#map'
-  post 'contacts' => 'contacts#create'
-  post 'users' => 'users#create'
+  post 'contacts' => 'contacts#build'
+  # post 'users' => 'users#create'
   post 'sessions' => 'sessions#create'
   get 'form' => 'sessions#new'
+  resources :users
+  get 'move/:user1_id/:user2_id' => 'admin#move'
+  get 'move0/:id' => 'admin#move0'
+  get 'users/:user_id/contacts/:contact_id' => 'contacts#create'
 
   # post 'sessions', to: proc { [200, {}, ['']] }
 

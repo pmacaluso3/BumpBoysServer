@@ -1,0 +1,48 @@
+<h1>
+  <%= @user.first_name %>
+</h1>
+<a href="/move0/<%= @user.id %>">Move <%= @user.first_name %> to 0,0</a>
+<h2>
+  Other users
+</h2>
+<table>
+  <tr>
+    <th>
+      Name
+    </th>
+    <th>
+      Lat
+    </th>
+    <th>
+      Lon
+    </th>
+    <th>
+      Send <%= @user.first_name %> to this person's location
+    </th>
+    <th>
+      Put <%= @user.first_name %> in this person's address book
+    </th>
+  </tr>
+  <% @users.each do |u| %>
+  <tr>
+    <th>
+      <%= link_to  u.first_name, u %>
+    </th>
+    <th>
+      <%= u.lat %>
+    </th>
+    <th>
+      <%= u.lon %>
+    </th>
+    <th>
+      <a href="/move/<%= @user.id %>/<%= u.id %>">Move <%= @user.first_name %> to <%= u.first_name %></a>
+    </th>
+    <th>
+      <% unless @user.has_as_contact?(u) %>
+        <a href="/users/<%= @user.id %>/contacts/<%= u.id %>">Put <%= @user.first_name %> in <%= u.first_name %>'s book</a>
+      <% end %>
+    </th>
+  </tr>
+
+  <% end %>
+</table>

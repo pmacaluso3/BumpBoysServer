@@ -1,0 +1,47 @@
+<h1>
+  Admin Dashboard
+</h1>
+<h4>
+  Users in the system
+</h4>
+<%= link_to "Create a new user", new_user_path %>
+
+
+<table>
+  <tr>
+    <th>
+      Name
+    </th>
+    <th>
+      Number
+    </th>
+    <th>
+      Lat
+    </th>
+    <th>
+      Lon
+    </th>
+    <th>
+      Token
+    </th>
+  </tr>
+<% @users.each do |user| %>
+  <tr>
+    <th>
+      <%= link_to user.first_name, user %>
+    </th>
+    <th>
+      <%= user.stored_phone_number %>
+    </th>
+    <th>
+      <%= user.lat %>
+    </th>
+    <th>
+      <%= user.lon %>
+    </th>
+    <th>
+      <%= user.token %>
+    </th>
+  </tr>
+<% end %>
+</table>
