@@ -43,29 +43,31 @@ class ServersController < ApplicationController
     if @relationships
       @relationships.each do |user_phone, mutual_contacts_list|
         u = User.find_by(stored_phone_number: user_phone)
-        this_users_nearby_friends_infos = []
-        this_users_nearby_friends_tokens = []
-        this_users_nearby_friends_tokens_previous = User.find_by(stored_phone_number: user_phone).nearby_friends_tokens.split(",")
-        mutual_contacts_list.each do |mutual_contact_phone, distance|
-          if distance < 1000
-            this_friend = User.find_by(stored_phone_number: mutual_contact_phone)
-            this_friend_info = [this_friend.first_name, this_friend.last_name, this_friend.image_url].join(",")
-            this_users_nearby_friends_infos << this_friend_info
-            this_users_nearby_friends_tokens << this_friend.token
+        if u
+          this_users_nearby_friends_infos = []
+          this_users_nearby_friends_tokens = []
+          this_users_nearby_friends_tokens_previous = User.find_by(stored_phone_number: user_phone).nearby_friends_tokens.split(",")
+          mutual_contacts_list.each do |mutual_contact_phone, distance|
+            if distance < 1000
+              this_friend = User.find_by(stored_phone_number: mutual_contact_phone)
+              this_friend_info = [this_friend.first_name, this_friend.last_name, this_friend.image_url].join(",")
+              this_users_nearby_friends_infos << this_friend_info
+              this_users_nearby_friends_tokens << this_friend.token
+            end
           end
+          u.nearby_friends_infos = this_users_nearby_friends_infos.join(";")
+          # u.save
+          # determine which friends are new to this user's radius, and send this user an apn for each one
+          # finally, set this user's string of nearby user tokens to the new list
+          new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
+          new_friends_in_radius.each do |friend_token|
+            friend = User.find_by(token: friend_token)
+            send_apn(u.token, friend.first_name, friend.last_name)
+          end
+          # u = User.find_by(token: user_token)
+          u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
+          u.save
         end
-        u.nearby_friends_infos = this_users_nearby_friends_infos.join(";")
-        # u.save
-        # determine which friends are new to this user's radius, and send this user an apn for each one
-        # finally, set this user's string of nearby user tokens to the new list
-        new_friends_in_radius = this_users_nearby_friends_tokens - this_users_nearby_friends_tokens_previous
-        new_friends_in_radius.each do |friend_token|
-          friend = User.find_by(token: friend_token)
-          send_apn(u.token, friend.first_name, friend.last_name)
-        end
-        # u = User.find_by(token: user_token)
-        u.nearby_friends_tokens = this_users_nearby_friends_tokens.join(",")
-        u.save
       end
     end
   end

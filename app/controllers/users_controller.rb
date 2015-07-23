@@ -3,6 +3,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.token = "<#{@user.token}>"
     @user.password = "password"
+    @user.nearby_friends_tokens = ""
+    @user.nearby_friends_infos = ""
     if @user.save
       redirect_to "/"
     else
