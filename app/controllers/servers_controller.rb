@@ -75,14 +75,15 @@ class ServersController < ApplicationController
     @user.lat =  params[:lat].to_f
     @user.lon = params[:lon].to_f
     @user.save
-    @nearby_friends = @user.nearby_friends_infos.split(";").map{|info|info.split(",")}
-    if @nearby_friends.empty?
-      @nearby_friends << [["http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00","Nate","Dog"]]
+    nearby_friends_nested_array = @user.nearby_friends_infos.split(";").map{|info|info.split(",")}
+    @nearby_friends_first_names = nearby_friends_nested_array.map{|i|i[0]}
+    @nearby_friends_images = nearby_friends_nested_array.map{|i|i[2]}
+    if @nearby_friends_images.empty? || @nearby_friends_first_names.empty?
+      @nearby_friends_images << "http://www.rollitup.org/proxy.php?image=http%3A%2F%2Fwww.esreality.com%2Ffiles%2Fplaceimages%2F2013%2F99064-yo-dawg-i-heard-you-have-no-friends-30.jpeg&hash=b7655b7718dfb6c45f7bbee04ed90d00,Nate,Dog"
+      @nearby_friends_first_names << "Xhibit"
     end
-    @to_send = {images: @nearby_friends}
-    puts "******************************** #{@to_send}"
     respond_to do |format|
-      format.json {render json: @to_send}
+      format.json {render json: {images: @nearby_friends_images, names: @nearby_friends_first_names}}
       format.html {render 'servers/show'}
     end
   end
