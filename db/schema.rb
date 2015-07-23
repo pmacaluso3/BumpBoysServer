@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20150721114242) do
   enable_extension "plpgsql"
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "token"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "stored_phone_number"
@@ -38,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150721114242) do
     t.string   "image_url"
     t.float    "lat"
     t.float    "lon"
-    t.string   "nearby_friends_images"
+    t.string   "nearby_friends_infos"
     t.string   "nearby_friends_tokens"
     t.string   "password_digest"
     t.datetime "created_at"
